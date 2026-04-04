@@ -9,8 +9,8 @@ const categoryStoe = useCategoryStore()
         <RouterLink to="/">小兔鲜</RouterLink>
       </h1>
       <ul class="app-header-nav">
-        <li class="home" v-for="category in categoryStoe.categoryList" :key="category.id">
-          <RouterLink to="/">{{ category.name }}</RouterLink>
+        <li class="home" v-for="item in categoryStoe.categoryList" :key="item.id">
+          <RouterLink :to="`/category/${item.id}`">{{ item.name }}</RouterLink>
         </li>
       </ul>
       <div class="search">
