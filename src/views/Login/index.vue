@@ -1,5 +1,10 @@
 <script setup>
 import { ref } from 'vue'
+import { loginAPI } from '@/apis/user'
+import { ElMessage } from 'element-plus'
+import 'element-plus/theme-chalk/el-message.css'
+import { useRouter } from 'vue-router'
+
 const form = ref({
   account: '',
   password: '',
@@ -26,11 +31,14 @@ const rules = {
 }
 
 const formRef = ref(null)
+const router = useRouter()
 const doLogin = () => {
-  formRef.value.validate((valid) => {
-    console.log(valid)
+  const { account, password } = form.value
+  formRef.value.validate(async (valid) => {
     if (valid) {
-      //do this
+      const res = await loginAPI({ account, password })
+      ElMessage({ type: 'success', message: 'successfully login' })
+      router.replace({ path: '/' })
     }
   })
 }
