@@ -1,7 +1,6 @@
 <script setup>
 import { useScroll } from '@vueuse/core'
 import { useCategoryStore } from '@/stores/category'
-import { storeToRefs } from 'pinia'
 
 const categoryStore = useCategoryStore()
 
