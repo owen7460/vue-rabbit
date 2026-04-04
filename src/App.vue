@@ -4,11 +4,12 @@ import { RouterView } from 'vue-router'
 
 <template>
   <router-view></router-view>
-  <div class="test">test scss</div>
+  <!-- <div class="test">test scss</div> -->
 </template>
 
 <style scoped lang="scss">
-.test {
-  color: $priceColor;
-}
+// .test {
+//   color: $priceColor;
+// }
+//
 </style>

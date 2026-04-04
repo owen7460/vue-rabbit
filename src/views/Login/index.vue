@@ -3,6 +3,7 @@ import { ref } from 'vue'
 const form = ref({
   account: '',
   password: '',
+  agree: true,
 })
 
 const rules = {
@@ -10,6 +11,17 @@ const rules = {
   password: [
     { required: true, message: 'password is required', trigger: 'blur' },
     { min: 6, max: 14, message: 'password must be more than 6 less than 14', trigger: 'blur' },
+  ],
+  agree: [
+    {
+      validator: (rule, value, callback) => {
+        if (value) {
+          callback()
+        } else {
+          callback(new Error('Please clicked the agreement'))
+        }
+      },
+    },
   ],
 }
 </script>
@@ -47,8 +59,10 @@ const rules = {
               <el-form-item prop="password" label="密码">
                 <el-input v-model="form.password" />
               </el-form-item>
-              <el-form-item label-width="22px">
-                <el-checkbox size="large"> 我已同意隐私条款和服务条款 </el-checkbox>
+              <el-form-item prop="agree" label-width="22px">
+                <el-checkbox size="large" v-model="form.agree">
+                  我已同意隐私条款和服务条款
+                </el-checkbox>
               </el-form-item>
               <el-button size="large" class="subBtn">点击登录</el-button>
             </el-form>
