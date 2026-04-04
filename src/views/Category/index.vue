@@ -1,5 +1,5 @@
 <script setup>
-import GoodsItem from '@/views/Home/components/Goodsitem.vue'
+import GoodsItem from '@/views/Home/components/GoodsItem.vue'
 import { useCategory } from './composables/useCategory'
 import { useBanner } from './composables/useBanner'
 
