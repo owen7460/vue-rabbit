@@ -9,7 +9,7 @@ const form = ref({
 const rules = {
   account: [{ required: true, message: 'username is empty', trigger: 'blur' }],
   password: [
-    { required: true, message: 'password is required', trigger: 'blur' },
+    { required: true, message: 'password is empty', trigger: 'blur' },
     { min: 6, max: 14, message: 'password must be more than 6 less than 14', trigger: 'blur' },
   ],
   agree: [
@@ -23,6 +23,16 @@ const rules = {
       },
     },
   ],
+}
+
+const formRef = ref(null)
+const doLogin = () => {
+  formRef.value.validate((valid) => {
+    console.log(valid)
+    if (valid) {
+      //do this
+    }
+  })
 }
 </script>
 <template>
@@ -47,6 +57,7 @@ const rules = {
         <div class="account-box">
           <div class="form">
             <el-form
+              ref="formRef"
               :model="form"
               :rules="rules"
               label-position="right"
@@ -64,7 +75,7 @@ const rules = {
                   我已同意隐私条款和服务条款
                 </el-checkbox>
               </el-form-item>
-              <el-button size="large" class="subBtn">点击登录</el-button>
+              <el-button size="large" class="subBtn" @click="doLogin">点击登录</el-button>
             </el-form>
           </div>
         </div>
