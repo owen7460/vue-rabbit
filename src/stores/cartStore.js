@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import { useUserStore } from './user'
-import { insertCartAPI, findNewCartListAPI } from '@/apis/cart'
+import { insertCartAPI, findNewCartListAPI, delCartAPI } from '@/apis/cart'
 
 export const useCartStore = defineStore(
   'cart',
@@ -26,9 +26,15 @@ export const useCartStore = defineStore(
       }
     }
 
-    const delCart = (skuId) => {
-      const idx = cartList.value.findIndex((item) => skuId === item.skuId)
-      cartList.value.splice(idx, 1)
+    const delCart = async (skuId) => {
+      if (isLogin.value) {
+        await delCartAPI([skuId])
+        const res = await findNewCartListAPI()
+        cartList.value = res.result
+      } else {
+        const idx = cartList.value.findIndex((item) => skuId === item.skuId)
+        cartList.value.splice(idx, 1)
+      }
     }
 
     const singleCheck = (skuId, selected) => {
