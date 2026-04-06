@@ -1,6 +1,20 @@
 <script setup>
-const checkInfo = {} // 订单对象
-const curAddress = {} // 地址对象
+import { getCheckInfoAPI } from '@/apis/checkout'
+import { onMounted, ref } from 'vue'
+const curAddress = ref({})
+
+const checkInfo = ref({}) // 订单对象
+const getCheckInfo = async () => {
+  const res = await getCheckInfoAPI()
+  checkInfo.value = res.result
+  console.log(checkInfo)
+  const item = checkInfo.value.userAddresses.find((item) => item.isDefault === 0)
+
+  curAddress.value = item
+}
+onMounted(() => {
+  getCheckInfo()
+})
 </script>
 <template>
   <div class="xtx-pay-checkout-page">
@@ -14,7 +28,7 @@ const curAddress = {} // 地址对象
               <div class="none" v-if="!curAddress">您需要先添加收货地址才可提交订单。</div>
               <ul v-else>
                 <li>
-                  <span>收<i />货<i />人：</span>{{ curAddress.receiver }}
+                  <span>收<i></i>货<i></i>人：</span>{{ curAddress.receiver }}
                 </li>
                 <li><span>联系方式：</span>{{ curAddress.contact }}</li>
                 <li>
